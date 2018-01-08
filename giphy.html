@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Gif Finder</title>
+  <!-- 	API key: dfOeIWcM65KToXqXlquCiYgMKge42bK6
+ -->
+</head>
+
+<body>
+  <div id="buttons">
+    <button data-pokemon="pikachu">
+      pikachu
+    </button>
+    <button data-pokemon="dragonair">
+      dragonair
+    </button>
+
+    <!-- STEP ONE: Open this file in the browser and click on the buttons. Watch what happens -->
+
+    <!-- STEP TWO: between the dashed lines below
+            * add three more buttons
+            * add a data-pokemonName attribute of famous people you know
+            * with a quote said by them -->
+
+    <!-- **************************************** -->
+
+    <button data-pokemon="arbok">arbok</button>
+    <button data-pokemon="meowth">meowth</button>
+    <button data-pokemon="umbreon">umbreon</button>
+    <button data-pokemon="espeon">espeon</button>
+    <button data-pokemon="vaporeon">vaporeon</button>
+    <button data-pokemon="flareon">flareon</button>
+    <button data-pokemon="squirtle">squirtle</button>
+    <button data-pokemon="ninetails">ninetails</button>
+    <button data-pokemon="rhydon">rhydon</button>
+    <button data-pokemon="ledian">ledian</button>
+
+	</div>
+    <!-- **************************************** -->
+
+
+    <!-- STEP THREE: open this file in the browser and click on your buttons. If they don't work, then fix your buttons -->
+
+    <!-- STEP FOUR: go over the JavaScript with your partners, and explain the lines of code to each other. -->
+  <div class="container">
+    <h1>Pokemon Gif Search</h1>
+
+    <!-- pokemon will get dumped here -->
+    <div id="pokemon-view"></div>
+
+    <form id="pokemon-form">
+      <label for="pokemon-input">Add a Pokemon to the List!</label>
+      <input type="text" id="pokemon-input">
+      <br>
+
+      <!-- Button triggers new pokemon to be added -->
+      <input id="add-pokemon" type="submit" value="Add a pokemon">
+    </form>
+  </div>
+
+
+  
+
+  <div id="gifs-appear-here">
+  </div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+
+  	var pokemon = ["pikachu", "dragonair", "arbok", "meowth", "umbreon", "espeon", "vaporeon", "flareon", "squirtle", "ninetails", "rhydon", "ledian"];
+
+$("#add-pokemon").on("click", function(event) {
+
+	event.preventDefault();
+	pokemon.push($('#pokemon-input').val());
+
+  	function renderButtons() {
+        // Deleting the pokemon prior to adding new pokemon
+        // (this is necessary otherwise we will have repeat buttons)
+        $("#buttons").empty();
+        // Looping through the array of pokemon
+        for (var i = 0; i < pokemon.length; i++) {
+          // Then dynamicaly generating buttons for each pokemon in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+          // Adding a class
+          a.addClass("pokemon");
+          // Added a data-attribute
+          a.attr("data-name", pokemon[i]);
+          // Provided the initial button text
+          a.text(pokemon[i]);
+          // Added the button to the HTML
+          $("#buttons").append(a);
+
+          
+        }
+
+
+        console.log(pokemon);
+    }
+    renderButtons();
+});
+
+
+
+    $("button").on("click", function() {
+      var pokemonName = $(this).attr("data-pokemon");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        pokemonName + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+        .done(function(response) {
+          var results = response.data;
+
+          for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div class='item'>");
+
+            var rating = results[i].rating;
+
+            var p = $("<p>").text("Rating: " + rating);
+
+            var pokemonNameImage = $("<img>");
+            pokemonNameImage.attr("src", results[i].images.fixed_height.url);
+
+            gifDiv.prepend(p);
+            gifDiv.prepend(pokemonNameImage);
+
+            $("#gifs-appear-here").prepend(gifDiv);
+          }
+
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var pokemonIndex = $("#pokemon-input").val().trim();
+        // The pokemon from the textbox is then added to our array
+        pokemon.push(pokemonIndex);
+        // Calling renderButtons which handles the processing of our pokemon array
+        renderButtons();
+          
+        });
+       
+    });
+  </script>
+</body>
+
+</html>
+
