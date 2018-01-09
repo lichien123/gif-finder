@@ -10,10 +10,10 @@
 
 <body>
   <div id="buttons">
-    <button data-pokemon="pikachu">
+    <button data-pokemon="pikachu" class="poke">
       pikachu
     </button>
-    <button data-pokemon="dragonair">
+    <button data-pokemon="dragonair" class="poke">
       dragonair
     </button>
 
@@ -26,16 +26,16 @@
 
     <!-- **************************************** -->
 
-    <button data-pokemon="arbok">arbok</button>
-    <button data-pokemon="meowth">meowth</button>
-    <button data-pokemon="umbreon">umbreon</button>
-    <button data-pokemon="espeon">espeon</button>
-    <button data-pokemon="vaporeon">vaporeon</button>
-    <button data-pokemon="flareon">flareon</button>
-    <button data-pokemon="squirtle">squirtle</button>
-    <button data-pokemon="ninetails">ninetails</button>
-    <button data-pokemon="rhydon">rhydon</button>
-    <button data-pokemon="ledian">ledian</button>
+    <button data-pokemon="arbok" class="poke">arbok</button>
+    <button data-pokemon="meowth" class="poke">meowth</button>
+    <button data-pokemon="umbreon" class="poke">umbreon</button>
+    <button data-pokemon="espeon" class="poke">espeon</button>
+    <button data-pokemon="vaporeon" class="poke">vaporeon</button>
+    <button data-pokemon="flareon" class="poke">flareon</button>
+    <button data-pokemon="squirtle" class="poke">squirtle</button>
+    <button data-pokemon="ninetails" class="poke">ninetails</button>
+    <button data-pokemon="rhydon" class="poke">rhydon</button>
+    <button data-pokemon="ledian" class="poke">ledian</button>
 
 	</div>
     <!-- **************************************** -->
@@ -66,7 +66,8 @@
   <div id="gifs-appear-here">
   </div>
 
-
+<h2></h2>
+<button>generate new element</button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -79,32 +80,51 @@ $("#add-pokemon").on("click", function(event) {
 	event.preventDefault();
 	pokemon.push($('#pokemon-input').val());
 
-  	function renderButtons() {
+  	function addButton() {
         // Deleting the pokemon prior to adding new pokemon
         // (this is necessary otherwise we will have repeat buttons)
-        $("#buttons").empty();
+
         // Looping through the array of pokemon
-        for (var i = 0; i < pokemon.length; i++) {
+        for (var i = pokemon.length-1; i < pokemon.length; i++) {
           // Then dynamicaly generating buttons for each pokemon in the array
           // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
           var a = $("<button>");
           // Adding a class
-          a.addClass("pokemon");
+          a.addClass("poke");
           // Added a data-attribute
           a.attr("data-name", pokemon[i]);
           // Provided the initial button text
           a.text(pokemon[i]);
           // Added the button to the HTML
-          $("#buttons").append(a);
-
-          
+          $("#buttons").append(a);          
         }
 
 
         console.log(pokemon);
     }
-    renderButtons();
+    addButton();
 });
+
+
+
+
+
+
+
+
+
+//     var counter = 0;
+
+// $("button").click(function() {
+//     $("h2").append("<p class='test'>click me " + (++counter) + "</p>")
+// });
+
+// With on():
+
+// $("h2").on("click", "p.test", function(){
+//     alert($(this).text());
+// });
+
 
 
 
@@ -141,12 +161,22 @@ $("#add-pokemon").on("click", function(event) {
         var pokemonIndex = $("#pokemon-input").val().trim();
         // The pokemon from the textbox is then added to our array
         pokemon.push(pokemonIndex);
-        // Calling renderButtons which handles the processing of our pokemon array
-        renderButtons();
+        // Calling addButton which handles the processing of our pokemon array
+
           
         });
        
     });
+
+
+
+
+
+
+
+
+
+
   </script>
 </body>
 
