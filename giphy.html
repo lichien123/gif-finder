@@ -4,8 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Gif Finder</title>
-  <!-- 	API key: dfOeIWcM65KToXqXlquCiYgMKge42bK6
- -->
+
 </head>
 
 <body>
@@ -16,15 +15,6 @@
     <button data-pokemon="dragonair" class="poke">
       dragonair
     </button>
-
-    <!-- STEP ONE: Open this file in the browser and click on the buttons. Watch what happens -->
-
-    <!-- STEP TWO: between the dashed lines below
-            * add three more buttons
-            * add a data-pokemonName attribute of famous people you know
-            * with a quote said by them -->
-
-    <!-- **************************************** -->
 
     <button data-pokemon="arbok" class="poke">arbok</button>
     <button data-pokemon="meowth" class="poke">meowth</button>
@@ -38,16 +28,9 @@
     <button data-pokemon="ledian" class="poke">ledian</button>
 
 	</div>
-    <!-- **************************************** -->
-
-
-    <!-- STEP THREE: open this file in the browser and click on your buttons. If they don't work, then fix your buttons -->
-
-    <!-- STEP FOUR: go over the JavaScript with your partners, and explain the lines of code to each other. -->
   <div class="container">
     <h1>Pokemon Gif Search</h1>
 
-    <!-- pokemon will get dumped here -->
     <div id="pokemon-view"></div>
 
     <form id="pokemon-form">
@@ -55,7 +38,6 @@
       <input type="text" id="pokemon-input">
       <br>
 
-      <!-- Button triggers new pokemon to be added -->
       <input id="add-pokemon" type="submit" value="Add a pokemon">
     </form>
   </div>
@@ -81,22 +63,17 @@ $("#add-pokemon").on("click", function(event) {
 	pokemon.push($('#pokemon-input').val());
 
   	function addButton() {
-        // Deleting the pokemon prior to adding new pokemon
-        // (this is necessary otherwise we will have repeat buttons)
-
-        // Looping through the array of pokemon
         for (var i = pokemon.length-1; i < pokemon.length; i++) {
-          // Then dynamicaly generating buttons for each pokemon in the array
-          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
           var a = $("<button>");
-          // Adding a class
+
           a.addClass("poke");
-          // Added a data-attribute
+
           a.attr("data-name", pokemon[i]);
-          // Provided the initial button text
+
           a.text(pokemon[i]);
-          // Added the button to the HTML
+
           $("#buttons").append(a);
+
           a.on('click', function(){
               var pokemonName = $(this).attr("data-name");
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -126,19 +103,16 @@ $("#add-pokemon").on("click", function(event) {
           }
 
         event.preventDefault();
-        // This line grabs the input from the textbox
-        var pokemonIndex = $("#pokemon-input").val().trim();
-        // The pokemon from the textbox is then added to our array
-        pokemon.push(pokemonIndex);
-        // Calling addButton which handles the processing of our pokemon array
 
+        var pokemonIndex = $("#pokemon-input").val().trim();
+
+        pokemon.push(pokemonIndex);
           
         });
        
     });
 
         }
-
 
         console.log(pokemon);
     }
@@ -147,23 +121,6 @@ $("#add-pokemon").on("click", function(event) {
 
 
 
-
-
-
-
-
-
-//     var counter = 0;
-
-// $("button").click(function() {
-//     $("h2").append("<p class='test'>click me " + (++counter) + "</p>")
-// });
-
-// With on():
-
-// $("h2").on("click", "p.test", function(){
-//     alert($(this).text());
-// });
 
 
 
@@ -197,25 +154,12 @@ $("#add-pokemon").on("click", function(event) {
           }
 
         event.preventDefault();
-        // This line grabs the input from the textbox
+
         var pokemonIndex = $("#pokemon-input").val().trim();
-        // The pokemon from the textbox is then added to our array
+
         pokemon.push(pokemonIndex);
-        // Calling addButton which handles the processing of our pokemon array
-
-          
         });
-       
     });
-
-
-
-
-
-
-
-
-
 
   </script>
 </body>
